@@ -3,7 +3,7 @@
  * version 1.0.0
  * 2018-09-22
  * author: KevinTseng < 921435247@qq.com@qq.com >
- * 文档:	https://github.com/chaorenzeng/jquery.numscroll.js.git
+ * 文档:  https://github.com/chaorenzeng/jquery.numscroll.js.git
  * QQ交流群: 739574382
  */
 
@@ -51,15 +51,15 @@
 		return this.each(function() {
 			var $this = $(this);
 			var $settings = settings;
-
-			var num = $this.text(); //实际值
+			
+			var num = $this.attr("data-num") || $this.text(); //实际值
+			var temp = 0; //初始值
+			$this.text(temp);
 			var numIsInt = isInt(num);
 			var numIsFloat = isFloat(num);
 			var step = (num / $settings.time) * 10; //步长
-
+			
 			setTimeout(function() {
-				var temp = 0; //初始值
-				$this.text(temp);
 				var numScroll = setInterval(function() {
 					if(numIsInt) {
 						$this.text(Math.floor(temp));

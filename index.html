@@ -11,14 +11,14 @@
 		</style>
 	</head>
 	<body>
+		<!--默认写法-->
 		<span class="num">888888</span>
+		<!--推荐写法-->
+		<span class="num" data-num="888888"></span>
 	</body>
 	<script src='http://code.jquery.com/jquery-2.1.1.min.js' type='text/javascript'></script>
 	<script src="js/jquery.numscroll.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
-		$(".num").numScroll({
-			'time': 3000,
-			'delay': 0
-		});
+		$(".num").numScroll();
 	</script>
 </html>

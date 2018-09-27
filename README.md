@@ -10,7 +10,10 @@
 ```
 2.拷贝以下布局结构
 ```html
+<!--默认写法-->
 <span class="num">888888</span>
+<!--推荐写法-->
+<span class="num" data-num="888888"></span>
 ```
 3.创建numscroll对象:
 ```js
