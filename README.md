@@ -1,7 +1,7 @@
 ## NumScroll
 #### 数字滚动累加动画插件 
 1.使用前先引入jquery  
-2.前端学习群:739574382
+2.前端学习群:814798690
 #### 快速使用
 1.引入jquery和jquery.numscroll.js
 ```js
