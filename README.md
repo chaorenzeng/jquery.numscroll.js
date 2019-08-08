@@ -29,6 +29,6 @@ $('#num2').numScroll({
 --        |    --   | --
 time      |   1500  | 持续时间 durationd
 delay     |   0     | 延迟开始 delay
-symbol    |   0     | 是否显示分隔符 display separators
+symbol    |   false     | 是否显示分隔符 display separators
 #### 案例展示
 ![查看演示](https://github.com/chaorenzeng/jquery.numscroll.js/blob/master/index.gif)
