@@ -1,6 +1,6 @@
 /*!
  * jquery.numscroll.js -- 数字滚动累加动画插件  (Digital rolling cumulative animation)
- * version 2.0.0
+ * version 3.0.0
  * 2019-08-08
  * author: KevinTseng < 921435247@qq.com@qq.com >
  * API文档: https://github.com/chaorenzeng/jquery.numscroll.js.git
@@ -8,79 +8,105 @@
  */
 
 (function($) {
-
+	
 	$.fn.numScroll = function(options) {
-
 		var settings = $.extend({
-			'time': 1500, //持续时间 durationd
-			'delay': 0, //延迟开始 delay
+			'number': '0', //数值
+			'step': 1, //步长
+			'time': 2000, //限制用时(为0时不限制) Limited use time (0 time is not limited)
+			'delay': 0, //延迟开始(ms) delay(ms)
 			'symbol': false //是否显示分隔符 display separators
 		}, options);
-
-		return this.each(function() {
-			//初始化
-			var $this = $(this);
-			var $settings = settings;
-			var source = $this.attr("data-num") || $this.text();
-			var temp = 0;
-			$this.text(temp);
+		settings.number = settings.number.toString(); //数值转字符串
+		
+		return this.each(function(){
+			//初始化配置
+			var $this = $(this),
+				oldNum = $this.text() || '0';
 			//分隔符显示判断
-			if (source.indexOf(',') > 0) {
+			if (settings.number.indexOf(',') > 0) {
 				//数值含有分隔符，则默认为需要显示分隔符
-				$settings.symbol = true;
+				settings.symbol = true;
 			}
-			if (options && !options.symbol) {
+			if (options && options.symbol===false) {
 				//手动设置不显示分隔符时，不显示分隔符
-				$settings.symbol = false;
+				settings.symbol = false;
 			}
-			//分隔符过滤
-			var num = source.replace(/,/g, ''),
+			//显示初始值
+			var targetNum = settings.number.replace(/,/g, '') || 0,
+				oldRealNum = oldNum.replace(/,/g, '');
+			if(settings.symbol){
+				$this.text(oldNum);
+			}else{
+				$this.text(oldRealNum);
+			}
+			//非数值处理
+			if(isNaN(oldRealNum)){
+				oldRealNum = 0;
+			}
+			if(isNaN(targetNum)){
+				return;
+			}
+			//初始值目标值准备
+			targetNum = parseFloat(targetNum);
+			oldRealNum= parseFloat(oldRealNum);
+			var tempNum = oldRealNum,
+				numIsInt = isInt(targetNum),
+				numIsFloat = isFloat(targetNum),
+				step = !settings.time?1:Math.abs(targetNum-oldRealNum) * 10 / settings.time,
 				numScroll;
-			var numIsInt = isInt(num),
-				numIsFloat = isFloat(num),
-				step = (num / $settings.time) * 10; //步长
-
-			//增长方法
-			function numInitGrow() {
+			//更新方法
+			function numInitUpdate() {
 				var showNum = '';
 				//整型或浮点型
 				if (numIsInt) {
-					showNum = Math.floor(temp);
+					showNum = Math.floor(tempNum);
 				} else if (numIsFloat != -1) {
-					showNum = temp.toFixed(numIsFloat)
+					showNum = tempNum.toFixed(numIsFloat)
 				} else {
-					showTarget(source);
+					showTarget(targetNum);
 					clearInterval(numScroll);
 					return;
 				}
 				//千位符显示
-				if ($settings.symbol) {
+				if (settings.symbol) {
 					showNum = formatSymbol(showNum);
 				}
 				$this.text(showNum);
 			}
-
+			
 			//最终显示
 			function showTarget(num) {
-				var targetNum = num.replace(/,/g, '');
-				if ($settings.symbol) {
+				var targetNum = num.toString().replace(/,/g, '');
+				if (settings.symbol) {
 					targetNum = formatSymbol(targetNum);
 				}
 				$this.text(targetNum);
 			}
-
+			
 			//定时开始
 			setTimeout(function() {
 				numScroll = setInterval(function() {
-					numInitGrow();
-					temp += step;
-					if (temp > num) {
-						showTarget(source);
-						clearInterval(numScroll);
+					numInitUpdate();
+					if(oldRealNum < targetNum){
+						//增
+						tempNum += step;
+						if (tempNum > targetNum) {
+							showTarget(targetNum);
+							clearInterval(numScroll);
+						}
+					}else{
+						//减
+						tempNum -= step;
+						if (tempNum < targetNum) {
+							showTarget(targetNum);
+							clearInterval(numScroll);
+						}
 					}
 				}, 1);
-			}, $settings.delay);
-		});
+			}, settings.delay);
+			
+		})
 	};
 
 	/*	

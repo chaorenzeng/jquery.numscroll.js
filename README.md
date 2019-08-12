@@ -10,25 +10,45 @@
 ```
 2.拷贝以下布局结构 (Copy the following layout structure)
 ```html
-<!--默认写法 Default Writing-->
-<p><span id="num0">888,692,346,813</span></p>
-<!--推荐写法 Recommended Writing-->
-<p><span id="num1" data-num="888692346813.89"></span></p>
-<p><span id="num2" data-num="888692346813.89"></span></p>
+<p><span id="num0"></span></p>
+<p><span id="num1"></span></p>
 ```
 3.创建numscroll对象 (Create numscroll objects)
 ```js
-$('#num0').numScroll()
-$('#num1').numScroll()
-$('#num2').numScroll({
-	'symbol': true
+$(function() {
+	//num0
+	var num0 = 893623.89,addNum0,newNum0;
+	$('#num0').text(num0);
+	setInterval(function() {
+		addNum0 = Math.random()*1000;
+		newNum0 = (parseFloat(num0) + parseFloat(addNum0)).toFixed(2);
+		num0 = newNum0;
+		$('#num0').numScroll({
+			number: newNum0
+		})
+	}, 1500)
+	
+	//num1
+	var num1 = '893692813.89',addNum1,newNum1;
+	$('#num1').text(num1);
+	setInterval(function() {
+		addNum1 = Math.random()*10000;
+		newNum1 = (parseFloat(num1) + parseFloat(addNum1)).toFixed(2);
+		num1 = newNum1;
+		$('#num1').numScroll({
+			number: newNum1,
+			symbol: true
+		})
+	}, 1800)
 })
 ```
 #### API文档
 可选参数 Parameter |  默认值 Default | 说明 Introduce
 --        |    --   | --
-time      |   1500  | 持续时间 durationd
+number    |   0  | 显示值
+step      |   1  | 步长
+time      |   2000  | 限制用时(为null时不限制) Limited use time
 delay     |   0     | 延迟开始 delay
-symbol    |   false     | 是否显示分隔符 display separators
+symbol    |   false | 是否显示分隔符 display separators
 #### 案例展示
 ![查看演示](https://github.com/chaorenzeng/jquery.numscroll.js/blob/master/index.gif)
