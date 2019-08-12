@@ -1,8 +1,10 @@
 ## NumScroll
-#### 数字滚动累加动画插件 
+#### 数字滚动累加动画插件(Digital scroll cumulative animation plug-in)
 1.使用前先引入jquery  (Introduce jQuery before use)  
 2.加入学习Q群:814798690 (Join Learning QQ Group: 814798690)  
-#### 快速使用
+#### 案例展示(Case presentation)
+![查看演示](https://github.com/chaorenzeng/jquery.numscroll.js/blob/master/index.gif)
+#### 快速使用(Quick use)
 1.引入jquery和jquery.numscroll.js
 ```js
 <script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
@@ -42,7 +44,7 @@ $(function() {
 	}, 1800)
 })
 ```
-#### API文档
+#### 支持参数(Support parameters)
 可选参数 Parameter |  默认值 Default | 说明 Introduce
 --        |    --   | --
 number    |   0  | 显示值
@@ -50,5 +52,3 @@ step      |   1  | 步长
 time      |   2000  | 限制用时(为null时不限制) Limited use time
 delay     |   0     | 延迟开始 delay
 symbol    |   false | 是否显示分隔符 display separators
-#### 案例展示
-![查看演示](https://github.com/chaorenzeng/jquery.numscroll.js/blob/master/index.gif)
