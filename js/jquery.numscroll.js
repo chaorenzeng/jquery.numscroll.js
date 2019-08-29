@@ -15,7 +15,8 @@
 			'step': 1, //步长
 			'time': 2000, //限制用时(为0时不限制) Limited use time (0 time is not limited)
 			'delay': 0, //延迟开始(ms) delay(ms)
-			'symbol': false //是否显示分隔符 display separators
+			'symbol': false ,//是否显示分隔符 display separators
+			'fromZero': true, //是否从0开始计数（为否时从原有值开始计数） Whether to start counting from zero(If not, count from the original value)
 		}, options);
 		settings.number = settings.number.toString(); //数值转字符串
 		
@@ -39,6 +40,10 @@
 				$this.text(oldNum);
 			}else{
 				$this.text(oldRealNum);
+			}
+			//判断从0开始计数或从原有值开始计数
+			if (settings.fromZero) {
+				oldRealNum = 0;
 			}
 			//非数值处理
 			if(isNaN(oldRealNum)){

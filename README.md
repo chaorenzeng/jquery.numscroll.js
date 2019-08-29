@@ -67,3 +67,4 @@ step      |   1  | 步长
 time      |   2000  | 限制用时(为null时不限制) Limited use time
 delay     |   0     | 延迟开始 delay
 symbol    |   false | 是否显示分隔符 display separators
+fromZero  |   true  | 是否从0开始计数（为否时从原有值开始计数） start counting from zero
