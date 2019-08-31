@@ -1,0 +1,9 @@
+/*!
+ * jquery.numscroll.js -- 数字滚动累加动画插件  (Digital rolling cumulative animation)
+ * version 3.0.0
+ * 2019-08-08
+ * author: KevinTseng < 921435247@qq.com@qq.com >
+ * API文档: https://github.com/chaorenzeng/jquery.numscroll.js.git
+ * 交流Q群: 814798690
+ */
+(function(c){c.fn.numScroll=function(e){var f=c.extend({"number":"0","step":1,"time":2000,"delay":0,"symbol":false,"fromZero":true,},e);f.number=f.number.toString();return this.each(function(){var n=c(this),g=n.text()||"0";if(f.number.indexOf(",")>0){f.symbol=true}if(e&&e.symbol===false){f.symbol=false}var l=f.number.replace(/,/g,"")||0,p=g.replace(/,/g,"");if(f.symbol){n.text(g)}else{n.text(p)}if(f.fromZero){p=0}if(isNaN(p)){p=0}if(isNaN(l)){return}l=parseFloat(l);p=parseFloat(p);var o=p,j=d(l),h=a(l),i=!f.time?1:Math.abs(l-p)*10/f.time,k;function q(){var r="";if(j){r=Math.floor(o)}else{if(h!=-1){r=o.toFixed(h)}else{m(l);clearInterval(k);return}}if(f.symbol){r=b(r)}n.text(r)}function m(r){var s=r.toString().replace(/,/g,"");if(f.symbol){s=b(s)}n.text(s)}setTimeout(function(){k=setInterval(function(){q();if(p<l){o+=i;if(o>l){m(l);clearInterval(k)}}else{o-=i;if(o<l){m(l);clearInterval(k)}}},1)},f.delay)})};function d(f){var g=false;try{if(String(f).indexOf(".")==-1&&String(f).indexOf(",")==-1){g=parseInt(f)%1===0?true:false}}catch(h){g=false}return g}function a(g){var h=-1;try{if(String(g).indexOf(".")!=-1){var f=String(g).indexOf(".")+1;var i=String(g).length-f;if(f>0){h=i}}}catch(j){h=-1}return h}function b(e){var g="";var j=e+"",k="",i="";var h=a(e);if(h!=-1){var f=j.split(".");k=f[0];i=f[1]}else{k=j}g=k.split("").reverse().reduce(function(n,m,l){return((l%3)?m:(m+","))+n});if(i!=""){g=g+"."+i}return g}})(jQuery);
